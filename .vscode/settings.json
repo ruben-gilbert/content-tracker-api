@@ -1,0 +1,6 @@
+{
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.defaultFormatter": "csharpier.csharpier-vscode",
+    "omnisharp.organizeImportsOnFormat": true
+}
