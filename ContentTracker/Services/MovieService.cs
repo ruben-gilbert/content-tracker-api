@@ -84,6 +84,7 @@ public class MovieService : IMovieService<MovieEntity>
         }
 
         SourceMovieEntity updated = await client.GetMovie(s.SourceId);
+        updated.MovieId = m.Id;
         SourceMovieEntity? renewed = await _sourceRepository.Update(updated);
         if (renewed == null)
         {
