@@ -32,9 +32,8 @@ public class Startup
 
         services.AddControllers();
 
-        // TODO: Use an actual database...
         services.AddDbContext<RepositoryContext>(
-            options => options.UseInMemoryDatabase("ContentTracker")
+            opts => opts.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"))
         );
 
         string sourcesSectionName = nameof(ContentTrackerOptions.Sources);
