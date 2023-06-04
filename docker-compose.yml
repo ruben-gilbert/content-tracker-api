@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  content-tracker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /ContentTracker
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=database,1433;Database=ContentTracker;User Id=sa;Password=LocalPassword123!;TrustServerCertificate=True;"
+    ports:
+      - 5000:80
+    entrypoint: ["dotnet", "ContentTracker.dll"]
+    depends_on:
+      - database
+
+  database:
+    build:
+      context: .
+      dockerfile: Dockerfile.database
+    working_dir: /db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=LocalPassword123!
+    ports:
+      - 5001:1433
+    volumes:
+      - db_volume:/var/opt/mssql/data
+    entrypoint: /db/setup_db.sh
+
+volumes:
+  db_volume:
